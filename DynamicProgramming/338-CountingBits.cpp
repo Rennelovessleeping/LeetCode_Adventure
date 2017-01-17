@@ -5,7 +5,7 @@
  *
  * Creation Date : 16-01-2017
  *
- * Last Modified : Mon Jan 16 15:34:01 2017
+ * Last Modified : Tue Jan 17 14:17:07 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -20,4 +20,16 @@ public:
         return ans;
     }
     
+};
+
+//Referring is faster than push_back on vector.
+class Solution {
+public:
+    vector<int> countBits(int num) {
+        vector<int> ans (num+1, 0);
+        for(int i=1;i<=num;i++){
+            ans[i] = ans[i&(i-1)] + 1;
+        }
+        return ans;
+    }
 };
