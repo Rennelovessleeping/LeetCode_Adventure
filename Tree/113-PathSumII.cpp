@@ -5,7 +5,7 @@
  *
  * Creation Date : 23-01-2017
  *
- * Last Modified : Mon Jan 23 22:46:21 2017
+ * Last Modified : Tue Jan 24 13:18:41 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -41,4 +41,4 @@ private:
 
 };
 
-//Backtracing solution?
+//Backtracing solution is possible too, since DFS is a specific form of backtracing.
