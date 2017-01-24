@@ -5,10 +5,11 @@
  *
  * Creation Date : 11-01-2017
  *
- * Last Modified : Wed Jan 11 23:40:55 2017
+ * Last Modified : Tue Jan 24 14:28:41 2017
  *
  * Created By :  
 **************************************************************************/
+// DFS solution
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -59,4 +60,37 @@ private:
         helper(root->right, depth+1);
     }
 
+};
+
+
+//BFS solution
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        vector<vector<int>> traversal;
+        queue<TreeNode*> q;
+        if(root) q.push(root);
+        
+        while(!q.empty()){
+            traversal.insert(traversal.begin(), vector<int>());
+            for(int i=0, len=q.size(); i<len; i++){
+                TreeNode* p = q.front();
+                q.pop();
+                traversal[0].push_back(p->val);
+                if(p->left) q.push(p->left);
+                if(p->right) q.push(p->right);
+            }
+        }
+        
+        return traversal;
+    }
 };
