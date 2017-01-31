@@ -5,12 +5,12 @@
  *
  * Creation Date : 30-01-2017
  *
- * Last Modified : Mon Jan 30 22:58:19 2017
+ * Last Modified : Tue Jan 31 16:21:51 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
 // BFS to detect loop in directed graph
-ass Solution {
+class Solution {
 public:
     bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
         
@@ -46,4 +46,39 @@ private:
     }
 };
 
+// DFS solution
+// A dfs path stemming from a node  should not contain that node;
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
+        vector<unordered_set<int>> graph = buildGraph(numCourses, prerequisites);
+        vector<bool> visited(numCourses, false); 
+        vector<bool> onPath(numCourses, false);
+        
+        for(int i=0;i<numCourses;i++){
+            if(!visited[i] && dfs_cycle(i, visited, onPath, graph)) return false;
+        }
+        return true;
+    }
 
+private:
+    vector<unordered_set<int>> buildGraph(int numCourses, vector<pair<int,int>>& prerequisites){
+        vector<unordered_set<int>> graph(numCourses);
+        
+        // build hash table to store which course is prerequisite for which;
+        for(auto x:prerequisites){
+            graph[x.second].insert(x.first);
+        }
+        return graph;
+    }
+    
+    bool dfs_cycle(int i, vector<bool>& visited, vector<bool>& onPath, vector<unordered_set<int>>& graph){
+        if (visited[i]) return false;
+        visited[i] = onPath[i] = true;
+        for(auto neigh:graph[i]){
+            if(onPath[neigh] || dfs_cycle(neigh, visited, onPath, graph)) return true;
+        }
+        onPath[i] = false;
+        return false;
+    }
+};
