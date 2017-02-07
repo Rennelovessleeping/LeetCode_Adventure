@@ -5,7 +5,7 @@
  *
  * Creation Date : 06-02-2017
  *
- * Last Modified : Tue Feb  7 00:21:03 2017
+ * Last Modified : Tue Feb  7 00:34:43 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -38,13 +38,14 @@ public:
 class Solution {
 public:
     int integerReplacement(int n) {
-        int count = 0;
-        while(n!=1){
-            if((n&1)==0) n >>= 1;
-            else if(n ==3 || (n>>1 & 1)==0 ) n--;
-            else n++;
-            count++;
-        }
-        return count;
+        
+        if (n == INT_MAX) return 32;
+        if (n == 1) return 0;
+        if (n == 3) return 2;
+        
+        if (n&1) return n%4 == 3 ? 1 + integerReplacement(n+1) : 1 + integerReplacement(n-1);
+        // n%4 == 3(11) do n+1; n%4 == 1(01) do n-1;
+        
+        return 1 + integerReplacement(n/2);
     }
-};
+};;
