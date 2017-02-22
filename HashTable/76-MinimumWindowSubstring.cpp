@@ -5,7 +5,7 @@
  *
  * Creation Date : 07-02-2017
  *
- * Last Modified : Tue Feb  7 22:53:34 2017
+ * Last Modified : Wed Feb 22 13:48:31 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -16,7 +16,7 @@ public:
         int minLength = INT_MAX;
         int counter = t.size(); 
         
-        vector<int> map((int)pow(2, sizeof(char)*8), 0);
+        vector<int> map((int) sizeof(char)*8, 0);
 
         for(int i=0;i<t.size();i++) map[t[i]]++;
         
