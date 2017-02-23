@@ -5,7 +5,7 @@
  *
  * Creation Date : 15-02-2017
  *
- * Last Modified : Wed Feb 15 23:25:28 2017
+ * Last Modified : Thu Feb 23 15:04:40 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -55,4 +55,38 @@ public:
 
     }
 
+};
+
+// Conciser solution
+class Solution {
+public:
+    void wallsAndGates(vector<vector<int>>& rooms) {
+        int m = rooms.size();
+        if(m==0) return;
+        int n = rooms[0].size();
+        if(n==0) return;
+        
+        queue<pair<int,int>> q;
+        
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++) if(rooms[i][j] == 0) q.push({i,j});
+        }
+        
+        int depth = 0;
+        while(!q.empty()){
+            int len = q.size();
+            for(int i=0; i<len; i++){
+                int row = q.front().first, col = q.front().second;
+                q.pop();
+                if(rooms[row][col] == INT_MAX) rooms[row][col] = depth;
+                
+                if(row>0 && rooms[row-1][col] ==INT_MAX) q.push({row-1, col});
+                if(row<m-1 && rooms[row+1][col] ==INT_MAX) q.push({row+1, col});
+                if(col>0 && rooms[row][col-1] ==INT_MAX) q.push({row, col-1});
+                if(col<n-1 && rooms[row][col+1] ==INT_MAX) q.push({row, col+1});
+            }
+            
+            depth++;
+        }
+    }
 };
