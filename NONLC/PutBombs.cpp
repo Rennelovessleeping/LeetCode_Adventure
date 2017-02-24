@@ -5,12 +5,11 @@
  *
  * Creation Date : 23-02-2017
  *
- * Last Modified : Thu Feb 23 16:04:22 2017
+ * Last Modified : Fri Feb 24 09:47:23 2017
  *
  * Created By :  
 **************************************************************************/
 // Given API rand() to generate a number between(0,1);
-
 vector<vector<int>> putBombs(w, h, m){ // 1- bombs
 	vector<vector<int>> res (h, vector<int>(w));
 	vector<int> idx(m);
@@ -29,3 +28,4 @@ vector<vector<int>> putBombs(w, h, m){ // 1- bombs
 	}
 	return res;
 }
+
