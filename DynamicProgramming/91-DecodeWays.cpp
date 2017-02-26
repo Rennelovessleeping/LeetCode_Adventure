@@ -5,7 +5,7 @@
  *
  * Creation Date : 10-02-2017
  *
- * Last Modified : Fri Feb 10 12:10:37 2017
+ * Last Modified : Thu Feb 23 19:18:41 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -24,7 +24,6 @@ public:
             if(s[i-1] == '0' && s[i-2]-'0' > 3) return 0;
             int tmp = (s[i-2]-'0')*10 + s[i-1]-'0';
             dp[i] = (s[i-1]=='0'? 0: dp[i-1]) + (tmp >= 10 && tmp <=26  ? dp[i-2] : 0 );
-            cout << i << ", " << dp[i] << endl;
         }
         return dp[n];
     }
