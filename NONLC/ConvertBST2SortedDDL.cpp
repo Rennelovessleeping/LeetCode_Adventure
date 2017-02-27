@@ -5,7 +5,7 @@
  *
  * Creation Date : 20-02-2017
  *
- * Last Modified : Mon Feb 20 20:13:39 2017
+ * Last Modified : Sun Feb 26 23:40:41 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -17,7 +17,7 @@ struct Node{
     Node *right;
 }
 
-void BST_to_DDL(Node *p, Node *prev, Node* head){
+void BST_to_DDL(Node *p, Node& *prev, Node* head){
     
     if(!p) return;
     // Convert the left subtree to sorted DDL in place:
