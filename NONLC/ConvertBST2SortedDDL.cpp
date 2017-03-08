@@ -5,7 +5,7 @@
  *
  * Creation Date : 20-02-2017
  *
- * Last Modified : Sun Feb 26 23:40:41 2017
+ * Last Modified : Thu Mar  2 23:43:51 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -15,7 +15,7 @@
 struct Node{
     Node *left;
     Node *right;
-}
+};
 
 void BST_to_DDL(Node *p, Node& *prev, Node* head){
     
