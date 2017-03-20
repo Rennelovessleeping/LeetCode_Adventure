@@ -5,7 +5,7 @@
  *
  * Creation Date : 01-02-2017
  *
- * Last Modified : Wed Feb  1 19:42:26 2017
+ * Last Modified : Mon Mar 20 12:13:30 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -47,3 +47,65 @@ private:
 };
 
 
+// UnionFind solution
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int m = grid.size(), n = m ? grid[0].size() : 0;
+        vector<int> parent(m*n, 0);
+        int cnt = 0;
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                int tmp = i*n + j;
+                cnt += grid[i][j] == '1';
+                parent[tmp] = tmp;
+            }
+        }
+        
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(grid[i][j] == '0') continue;
+                
+                int cur = i*n+j;
+                if(i-1>=0 && grid[i-1][j] == '1'){
+                    int nebr = (i-1)*n + j;
+                    if(!isConnected(parent, cur, nebr)) connect(parent, cur, nebr, cnt);
+                }
+                
+                if(i+1<m && grid[i+1][j] == '1'){
+                    int nebr = (i+1)*n + j;
+                    if(!isConnected(parent, cur, nebr)) connect(parent, cur, nebr, cnt);
+                }
+                
+                if(j-1>=0 && grid[i][j-1] == '1'){
+                    int nebr = i*n + j - 1;
+                    if(!isConnected(parent, cur, nebr)) connect(parent, cur, nebr, cnt);
+                }
+                
+                if(j+1<n && grid[i][j+1] == '1'){
+                    int nebr = i*n + j + 1;
+                    if(!isConnected(parent, cur, nebr)) connect(parent, cur, nebr, cnt);
+                }
+                
+            }
+        }
+        
+        return cnt;
+    }
+    
+private:
+    bool isConnected(vector<int>& parent, int p, int c){
+        while(p !=  parent[p]) p = parent[parent[p]];
+        while(c !=  parent[c]) c = parent[parent[c]];
+        return c == p;
+    }
+    
+    void connect(vector<int>& parent, int p, int c, int& cnt){
+        while(p !=  parent[p]) p = parent[parent[p]];
+        while(c !=  parent[c]) c = parent[parent[c]];
+        if (c == p) return;
+        parent[c] = p;
+        cnt--;
+    }
+    
+};
