@@ -5,7 +5,7 @@
  *
  * Creation Date : 28-02-2017
  *
- * Last Modified : Tue Feb 28 11:25:36 2017
+ * Last Modified : Mon Mar 27 22:32:03 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -47,5 +47,35 @@ public:
             
         }
         return maxArea;
+    }
+};
+
+// solution following the idea of max rectangle in hist
+class Solution {
+public:
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        int m = matrix.size(), n = m ? matrix[0].size() : 0;
+        int res = 0;
+        vector<int> height(n, 0);
+        
+        for(int i=0; i<m; i++){
+            // update height
+            for(int j=0; j<n; j++){
+                if(matrix[i][j] == '1') height[j]++;
+                else height[j] = 0;
+            }
+            
+            stack<int> stk;
+            int j = 0;
+            while(!stk.empty() || j<n){
+                if(j<n && (stk.empty() || height[j] >= height[stk.top()] )) stk.push(j++);
+                else{
+                    int tmpIdx = stk.top(); stk.pop();
+                    res = max(res, height[tmpIdx] * (stk.empty() ? j : j-stk.top()-1));
+                }
+            }
+        }
+        
+        return res;
     }
 };
