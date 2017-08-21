@@ -5,7 +5,7 @@
  *
  * Creation Date : 02-01-2017
  *
- * Last Modified : Mon Jan  2 23:48:41 2017
+ * Last Modified : Thu Jun 29 14:16:05 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -17,7 +17,43 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
- // Bottom-up Divide and Conquer
+
+//Top-down Divide-and-Conquer Solution:
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        if(!head || !head->next) return head;
+        // Top-down recursive solutoin
+        ListNode *slow = head, *fast = head, *prev = slow;
+        
+        while(fast && fast->next){
+            prev = slow;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        prev->next = nullptr; // split the first half from the second half
+        
+        return mergeTwoLists(sortList(head), sortList(slow));
+        
+    }
+    
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if(!l1) return l2;
+        if(!l2) return l1;
+        
+        if(l1->val < l2->val){
+            l1->next = mergeTwoLists(l1->next, l2);
+            return l1;
+        }
+        else{
+            l2->next = mergeTwoLists(l1, l2->next);
+            return l2;
+        }
+    }
+};
+
+
+// Bottom-up Divide and Conquer
 class Solution {
 public:
     ListNode* sortList(ListNode* head) {
