@@ -5,7 +5,7 @@
  *
  * Creation Date : 14-02-2017
  *
- * Last Modified : Tue Feb 14 22:15:54 2017
+ * Last Modified : Mon Sep 18 13:19:55 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -33,5 +33,26 @@ private:
             }
             
         }
+    }
+};
+
+// Iterative Solution
+// If we want to insert an element which is a dup, we can only insert it after the newly inserted elements from last step.
+class Solution {
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> res = {{}};
+        int startIdx = 0, len = 0;
+        for(int i=0; i<nums.size(); i++) {
+            startIdx = i>0 && nums[i] == nums[i-1] ? len : 0;
+            len = res.size();
+            for(int j=startIdx; j<len; j++) {
+                auto tmp = res[j];
+                tmp.push_back(nums[i]);
+                res.push_back(tmp);
+            }
+        }
+        return res;
     }
 };
