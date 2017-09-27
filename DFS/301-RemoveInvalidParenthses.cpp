@@ -5,7 +5,7 @@
  *
  * Creation Date : 11-02-2017
  *
- * Last Modified : Sat Feb 25 11:42:53 2017
+ * Last Modified : Mon Sep 25 16:00:33 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -43,3 +43,36 @@ private:
         }
     }
 };
+
+// A simpler version of this problem requires us to return only one valid string;
+// In that case, we only need to remove extra '(' and ')' only once;
+class Solution {
+public:
+    vector<string> removeInvalidParentheses(string s) {
+        // remove extra '('
+        string res;
+        int cnt = 0;
+        for(int i=0; i<s.size(); i++) {
+            if(s[i] == '(') cnt++;
+            else if(s[i] == ')') cnt--;
+            
+            if(cnt >= 0) res += s[i];
+            else cnt = 0;
+        }
+        
+        s = res;
+        res = "";
+        cnt = 0;
+        // remove extra ')'
+        for(int i=s.size()-1; i>=0; i--) {
+            if(s[i] == ')') cnt++;
+            else if(s[i] == '(') cnt--;
+            
+            if(cnt >= 0) res = s[i] + res;
+            else cnt = 0;
+        }
+        
+        return vector<string> {res};
+    }
+};
+
