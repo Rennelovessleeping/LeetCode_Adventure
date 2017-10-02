@@ -5,7 +5,7 @@
  *
  * Creation Date : 20-02-2017
  *
- * Last Modified : Mon Feb 20 21:26:14 2017
+ * Last Modified : Thu Sep 28 13:53:52 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -30,7 +30,7 @@ void DDL_to_BST(Node *head){
 }
 
 Node* constructBST(Node*& head, int n){
-    if(n<=0) return;
+    if(n<=0) return nullptr;
     // Construct left subtree
     Node *left = constructBST(head, n/2); //After finishing this in the first call, head points to the median now
     Node *root = head;

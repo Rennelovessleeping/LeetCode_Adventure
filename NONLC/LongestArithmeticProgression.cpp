@@ -5,7 +5,7 @@
  *
  * Creation Date : 21-02-2017
  *
- * Last Modified : Tue Feb 21 17:19:19 2017
+ * Last Modified : Thu Sep 28 22:21:39 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -15,7 +15,7 @@
 int longestArithmeticProgression(vector<int>& nums){
 	if(nums.size()<=2) return nums.size();
 	int n = nums.size(), maxLen = 0;
-	vector<vector<int>> dp(n, vector<int>(n));
+	vector<vector<int>> dp(n, vector<int>(n)); // dp[i][j] - longest AP with difference as nums[i] - nums[i] startig from idx i
 
 	// Initialization
 	for(int i=0; i<n; i++) dp[i].back()=2;
@@ -88,7 +88,7 @@ int LongestArithmeticProgression(vector<int>& nums){
 	}
 
 	for(auto item:mp){
-		vector<int> lengths(n,1);
+		vector<int> lengths(n,1); // lengths[i] = longest arithmetic subsequence ending at nums[i] with distance as item.first
 		maxLen = max(maxLen, lengths[x.second.second] = lengths[x.second.firt] + 1);	
 		// Since there are no duplicates, given fixed j and diff(i,j) are unique over all the i;
 	}	
