@@ -2,10 +2,9 @@
  * File Name : 214-ShortestPalindrome.cpp
  *
  * Purpose :
+ * * Creation Date : 14-03-2017
  *
- * Creation Date : 14-03-2017
- *
- * Last Modified : Tue Mar 14 18:45:38 2017
+ * Last Modified : Sat Oct 14 17:43:30 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -39,3 +38,15 @@ private:
     }
 };
 
+// recursive solution: the key idea is to find the longest palindromic prefix. --> we can use two pointer to judge
+// the substring contain it.
+class Solution {
+public:
+    string shortestPalindrome(string s) {
+        int i = 0, len = s.size();
+        for(int j=len-1; j>=0; j--) if(s[i]==s[j]) i++;
+        if(i == len) return s;
+        string suffix = s.substr(i);
+        return string (suffix.rbegin(), suffix.rend()) + shortestPalindrome(s.substr(0, i)) + suffix;
+    }
+};
