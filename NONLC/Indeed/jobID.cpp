@@ -5,7 +5,7 @@
  *
  * Creation Date : 17-10-2017
  *
- * Last Modified : Tue Oct 17 15:10:09 2017
+ * Last Modified : Wed Oct 18 22:01:55 2017
  *
  * Created By :  Renee Bai
 **************************************************************************/
@@ -25,7 +25,7 @@ struct Interval{
 
 struct cmp{
     bool operator() (const Interval& l, const Interval& r) {
-        return l.start < r.start || (l.start == r.start && l.end < r.end);
+        return l.start <= r.start || l.end < r.end;
     }
 };
 
@@ -39,7 +39,7 @@ public:
         }
         //Insertion and Merge;
         auto it = expiredJobs.lower_bound(tmp);
-        if(--it != expiredJobs.end() && it->end >= id) return;
+        if(it != expiredJobs.end() && it->end >= id) return;
         if(it != expiredJobs.end() && it->end+1 == id) {
             tmp.start = it->start;
             expiredJobs.erase(it);
