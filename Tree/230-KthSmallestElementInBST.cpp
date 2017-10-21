@@ -5,7 +5,7 @@
  *
  * Creation Date : 25-01-2017
  *
- * Last Modified : Wed Jan 25 17:25:46 2017
+ * Last Modified : Sat Oct 21 13:29:02 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -32,4 +32,24 @@ public:
         return 0;
     }
     
+};
+
+// iterative solution using stack
+class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        stack<TreeNode*> stk;        
+        while(root || !stk.empty()) {
+            while(root) {
+                stk.push(root);
+                root = root->left;
+            }
+            
+            root = stk.top(); stk.pop();
+            if(--k == 0) return root->val;
+            root = root->right;
+        }
+        
+        return -1;
+    }
 };

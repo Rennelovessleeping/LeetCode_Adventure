@@ -5,7 +5,7 @@
  *
  * Creation Date : 01-02-2017
  *
- * Last Modified : Tue Feb 21 21:39:13 2017
+ * Last Modified : Sat Oct 21 13:20:28 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -50,5 +50,28 @@ public:
         if(pre && pre->val >= root->val) return false;
         pre = root;
         return inorder(root->right, pre);
+    }
+};
+
+// Iterative solution
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        if(!root) return true;
+        TreeNode* prev = nullptr;
+        stack<TreeNode*> stk;
+        
+        while(!stk.empty() || root) {
+            while(root) {
+                stk.push(root);
+                root = root->left;
+            }
+            root = stk.top(); stk.pop();
+            if(prev && prev->val >= root->val) return false;
+            prev = root;
+            root = root->right;
+        }
+        
+        return true;
     }
 };
