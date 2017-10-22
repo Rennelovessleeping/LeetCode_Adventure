@@ -5,7 +5,7 @@
  *
  * Creation Date : 13-03-2017
  *
- * Last Modified : Mon Mar 13 17:29:59 2017
+ * Last Modified : Sun Oct 22 17:47:57 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -91,4 +91,66 @@ private:
         }
         
     }    
+};
+
+// Bidirectional BFS:
+class Solution {
+public:
+    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
+        unordered_map<string, vector<string>> mp;
+        unordered_set<string> dict{wordList.begin(), wordList.end()}, set1{beginWord}, set2{endWord};
+        if(!dict.count(endWord)) return {};
+        bfs(dict, mp, set1, set2, false);
+        vector<vector<string>> res;
+        vector<string> path{beginWord};
+        dfs(mp, beginWord, endWord,  res, path);
+        return res;
+    }
+    
+    bool bfs(unordered_set<string>& dict, unordered_map<string, vector<string>>& mp, unordered_set<string>& set1, unordered_set<string>& set2, bool flip) { // build map with shortest distance to endWord;
+        if (set1.empty()) return false;
+        else if (set1.size() > set2.size()) return bfs(dict, mp, set2, set1, !flip);
+        
+        for(auto word:set1) dict.erase(word);
+        for(auto word:set2) dict.erase(word);
+        
+        bool findWord = false;
+        unordered_set<string> tmpSet;
+        for(auto word:set1) {
+            string tmp = word;
+            for(int i=0; i<word.size(); i++) {
+                word = tmp;
+                for(char ch='a'; ch<='z'; ch++) {
+                    word[i] = ch;
+                    string key = flip ? word : tmp;
+                    string val = flip ? tmp : word;
+                    if(set2.count(word)) {
+                        findWord = true;
+                        mp[key].push_back(val);
+                    }
+                    
+                    if(!findWord && dict.count(word)) {
+                        tmpSet.insert(word);
+                        mp[key].push_back(val);
+                    }
+                }                
+            }
+        }
+        
+        return findWord || bfs(dict, mp, tmpSet, set2, flip);
+    }
+    
+    void dfs(unordered_map<string, vector<string>> mp, string beginWord, string endWord, vector<vector<string>>& res, vector<string> path) {
+        if(beginWord == endWord) {
+            res.push_back(path);
+            return;
+        }
+        else if(!mp.count(beginWord)) return;
+        
+        for(auto nebr:mp[beginWord]) {
+            path.push_back(nebr);
+            dfs(mp, nebr, endWord, res, path);
+            path.pop_back();
+        }
+    }
 };
