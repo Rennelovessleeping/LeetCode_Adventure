@@ -5,7 +5,7 @@
  *
  * Creation Date : 21-02-2017
  *
- * Last Modified : Thu Sep 28 22:21:39 2017
+ * Last Modified : Sun Oct 22 13:35:44 2017
  *
  * Created By :  Renne Bai
 **************************************************************************/
@@ -96,5 +96,27 @@ int LongestArithmeticProgression(vector<int>& nums){
 	return maxlen;
 }
 
+// Hashtable solution based DP solution
+#include <iostream>
+#include <vector>
+using namespace std;
 
+int longestArithmeticArray(vector<int>& a) {
+    if (a.size() < 3) return a.size();
+    
+    int maxLen = 0;
+    vector<unordered_map<int, int>> dp(a.size());
+    for (int i = 1; i < a.size(); ++i)
+        for (int j = 0; j < i; ++j) {
+            int d = a[i] - a[j];
+            dp[i][d] = max(dp[i][d], dp[j][d]+1);
+            maxLen = max(maxLen, dp[i][d]);
+        }
+    return maxLen + 1;
+}
 
+int main() {
+    vector<int> nums = {1,3,3,3,2,5,7,4,9,11,10};
+    cout << longestArithmeticArray(nums) << endl;
+    return 0;
+}
